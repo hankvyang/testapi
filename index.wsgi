@@ -15,7 +15,7 @@ login_cookie = 'cookie'
 
 
 def is_authenticated(name, password):
-    if(name==user_name and password==password)
+    if(name==user_name and password==password):
         return True
     return False    
 
@@ -25,7 +25,8 @@ def is_cookie_present(cookie):
 class Index:
     def GET(self):
         c = web.cookies().get('login_cookie')
-        return 'you are not logged in' if not is_cookie_present(c)
+        if not is_cookie_present(c):
+            return 'you are not logged in'
         todos = [{'id':1,'price':2,'due':'2014/7/30'},{'id':2,'price':2,'due':'2014/7/30'},{'id':3,'price':2,'due':'2014/7/20'},{'id':4,'price':2,'due':'2014/7/31'}]
         web.header('Content-Type', 'application/json')
         return json.dumps(todos)
@@ -33,7 +34,7 @@ class Index:
 class Login:
     def POST(self):
         i = web.input()
-        if(is_authenticated(i.name,i.password))
+        if(is_authenticated(i.name, i.password)):
         {
             web.setcookie('login_cookie','cookie')
             return 'ok'
